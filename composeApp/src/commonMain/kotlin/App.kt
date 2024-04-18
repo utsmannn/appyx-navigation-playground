@@ -18,6 +18,7 @@ import com.bumble.appyx.components.backstack.BackStack
 import com.bumble.appyx.components.backstack.BackStackModel
 import com.bumble.appyx.components.backstack.operation.pop
 import com.bumble.appyx.components.backstack.operation.push
+import com.bumble.appyx.components.backstack.operation.replace
 import com.bumble.appyx.components.backstack.ui.fader.BackStackFader
 import com.bumble.appyx.components.backstack.ui.parallax.BackStackParallax
 import com.bumble.appyx.interactions.core.model.transition.Operation
@@ -85,7 +86,7 @@ fun UserContent() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Magenta),
+            .background(Color.Gray),
         contentAlignment = Alignment.Center
     ) {
         Text("ini user",
@@ -168,11 +169,7 @@ class RootNode(
                 backStack.push(Router.Detail)
             }
             Router.Detail -> DetailNode(nodeContext) {
-                backStack.pop(
-                    mode = Operation.Mode.IMPOSED,
-                    animationSpec = null
-                )
-                backStack.push(Router.User)
+                backStack.replace(Router.User, mode = Operation.Mode.IMMEDIATE)
             }
             Router.User -> {
                 UserNode(nodeContext)
